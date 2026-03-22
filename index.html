@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Divyanshi Garg — Product Owner</title>
+  <meta name="description" content="Product Owner with 4+ years building B2B digital products that drive revenue, cut costs, and ship on time." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── TOKENS ───────────────────────────────────────────── */
+    :root {
+      --bg:          #09090b;
+      --surface:     #111113;
+      --surface-2:   #18181b;
+      --border:      #27272a;
+      --accent:      #c8ff00;
+      --accent-dim:  rgba(200,255,0,.10);
+      --accent-mid:  rgba(200,255,0,.35);
+      --text:        #e4e4e7;
+      --muted:       #71717a;
+      --faint:       #3f3f46;
+      --white:       #fafafa;
+      --radius:      6px;
+    }
+
+    /* ─── RESET ────────────────────────────────────────────── */
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 400;
+      line-height: 1.65;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color:inherit; text-decoration:none; }
+    h1,h2,h3,h4 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      line-height: 1.05;
+    }
+
+    /* ─── SCROLLBAR ────────────────────────────────────────── */
+    ::-webkit-scrollbar { width:3px; }
+    ::-webkit-scrollbar-track { background:var(--bg); }
+    ::-webkit-scrollbar-thumb { background:var(--faint); border-radius:2px; }
+    ::-webkit-scrollbar-thumb:hover { background:var(--accent); }
+
+    /* ─── NAV ──────────────────────────────────────────────── */
+    nav {
+      position: fixed; top:0; left:0; right:0; z-index:100;
+      display: flex; align-items:center; justify-content:space-between;
+      padding: 1.1rem 2.5rem;
+      background: rgba(9,9,11,.75);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid transparent;
+      transition: border-color .3s;
+    }
+    nav.scrolled { border-color: var(--border); }
+    .nav-logo {
+      font-family:'Syne',sans-serif; font-weight:800; font-size:1rem;
+      color:var(--accent); letter-spacing:-.02em;
+    }
+    .nav-links { display:flex; gap:2rem; list-style:none; }
+    .nav-links a {
+      font-size:.78rem; font-weight:500; letter-spacing:.08em;
+      text-transform:uppercase; color:var(--muted);
+      transition:color .2s;
+    }
+    .nav-links a:hover { color:var(--accent); }
+
+    /* ─── HERO ─────────────────────────────────────────────── */
+    #hero {
+      position:relative; min-height:100vh;
+      display:flex; flex-direction:column; justify-content:center;
+      padding: 9rem 2.5rem 5rem;
+      overflow:hidden; cursor:crosshair;
+    }
+    #hero-canvas {
+      position:absolute; inset:0; z-index:0;
+      pointer-events:none;
+    }
+    .hero-content { position:relative; z-index:1; max-width:880px; }
+
+    .hero-status {
+      display:inline-flex; align-items:center; gap:.6rem;
+      font-size:.75rem; font-weight:500; letter-spacing:.08em;
+      text-transform:uppercase; color:var(--muted);
+      background:var(--surface); border:1px solid var(--border);
+      padding:.35rem .9rem; border-radius:20px;
+      margin-bottom:2rem;
+    }
+    .hero-status-dot {
+      width:7px; height:7px; border-radius:50%;
+      background:var(--accent);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%,100% { box-shadow: 0 0 0 0 rgba(200,255,0,.5); }
+      50%      { box-shadow: 0 0 0 5px rgba(200,255,0,0); }
+    }
+
+    .hero-name {
+      font-size: clamp(3.8rem, 11vw, 9rem);
+      color: var(--white);
+      letter-spacing: -.05em;
+      margin-bottom: .2rem;
+      line-height: 1;
+      animation: heroReveal .9s cubic-bezier(.16,1,.3,1) both;
+    }
+    .hero-name .accent { color:var(--accent); }
+    @keyframes heroReveal {
+      from { opacity:0; transform:translateY(40px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+
+    .hero-tagline {
+      font-size: clamp(1rem, 2.2vw, 1.3rem);
+      font-weight:300; color:var(--muted);
+      max-width:580px; margin-top:1.75rem; margin-bottom:2.75rem;
+      line-height:1.6;
+      animation: heroReveal .9s .15s cubic-bezier(.16,1,.3,1) both;
+    }
+    .hero-tagline strong { color:var(--text); font-weight:500; }
+
+    .hero-cta {
+      display:flex; gap:.875rem; flex-wrap:wrap;
+      animation: heroReveal .9s .25s cubic-bezier(.16,1,.3,1) both;
+    }
+
+    /* ─── BUTTONS ──────────────────────────────────────────── */
+    .btn {
+      display:inline-flex; align-items:center; gap:.45rem;
+      padding:.7rem 1.6rem; border-radius:var(--radius);
+      font-family:'DM Sans',sans-serif; font-size:.875rem; font-weight:500;
+      letter-spacing:.02em; transition:all .22s; cursor:pointer;
+      white-space:nowrap;
+    }
+    .btn-primary {
+      background:var(--accent); color:#09090b;
+      border:1px solid var(--accent);
+    }
+    .btn-primary:hover {
+      background:transparent; color:var(--accent);
+    }
+    .btn-ghost {
+      background:transparent; color:var(--muted);
+      border:1px solid var(--border);
+    }
+    .btn-ghost:hover { border-color:var(--accent); color:var(--accent); }
+
+    /* ─── SECTION WRAPPER ──────────────────────────────────── */
+    .section-wrap {
+      max-width:1060px; margin:0 auto;
+      padding:6.5rem 2.5rem;
+      border-top:1px solid var(--border);
+    }
+    .section-eyebrow {
+      display:flex; align-items:center; gap:.75rem;
+      font-size:.72rem; font-weight:500; letter-spacing:.14em;
+      text-transform:uppercase; color:var(--accent);
+      margin-bottom:1rem;
+    }
+    .section-eyebrow::before {
+      content:''; display:block; width:1.5rem; height:1px;
+      background:var(--accent);
+    }
+    .section-title {
+      font-size:clamp(1.9rem,4.5vw,3rem);
+      color:var(--white); letter-spacing:-.03em;
+      margin-bottom:3.5rem;
+    }
+
+    /* ─── SCROLL REVEALS ───────────────────────────────────── */
+    .reveal {
+      opacity:0; transform:translateY(28px);
+      transition:opacity .65s ease, transform .65s ease;
+    }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+    .d1 { transition-delay:.08s; }
+    .d2 { transition-delay:.16s; }
+    .d3 { transition-delay:.24s; }
+    .d4 { transition-delay:.32s; }
+
+    /* ─── ABOUT ────────────────────────────────────────────── */
+    .about-layout {
+      display:grid; grid-template-columns:1fr 1fr;
+      gap:5rem; align-items:start;
+    }
+    .about-text p {
+      color:var(--muted); font-size:1.025rem; line-height:1.85;
+      margin-bottom:1.15rem;
+    }
+    .about-text p strong { color:var(--text); font-weight:500; }
+
+    .stats-grid {
+      display:grid; grid-template-columns:1fr 1fr; gap:1rem;
+    }
+    .stat-card {
+      background:var(--surface); border:1px solid var(--border);
+      border-radius:var(--radius); padding:1.4rem 1.5rem;
+      transition:border-color .25s, transform .25s;
+    }
+    .stat-card:hover { border-color:var(--accent); transform:translateY(-2px); }
+    .stat-num {
+      font-family:'Syne',sans-serif; font-size:2.1rem; font-weight:800;
+      color:var(--accent); letter-spacing:-.04em; line-height:1;
+      margin-bottom:.3rem;
+    }
+    .stat-lbl {
+      font-size:.73rem; font-weight:400; color:var(--muted);
+      text-transform:uppercase; letter-spacing:.06em;
+    }
+
+    /* ─── TIMELINE ─────────────────────────────────────────── */
+    .timeline { position:relative; padding-left:1.75rem; }
+    .timeline::before {
+      content:''; position:absolute; left:0; top:.6rem; bottom:0;
+      width:1px;
+      background:linear-gradient(to bottom, var(--accent) 0%, transparent 100%);
+    }
+    .t-item {
+      position:relative; margin-bottom:3.75rem; padding-left:2.25rem;
+    }
+    .t-item::before {
+      content:''; position:absolute; left:-1.75rem; top:.6rem;
+      width:9px; height:9px; border-radius:50%;
+      background:var(--accent);
+      box-shadow:0 0 10px var(--accent);
+      transform:translateX(-4px);
+    }
+    .t-header {
+      display:flex; justify-content:space-between; align-items:flex-start;
+      flex-wrap:wrap; gap:.5rem; margin-bottom:.2rem;
+    }
+    .t-company {
+      font-family:'Syne',sans-serif; font-size:1.2rem; font-weight:700;
+      color:var(--white);
+    }
+    .t-date {
+      font-size:.75rem; font-weight:500; letter-spacing:.05em;
+      color:var(--accent); background:var(--accent-dim);
+      padding:.22rem .75rem; border-radius:20px; white-space:nowrap;
+    }
+    .t-role {
+      font-size:.88rem; color:var(--muted); font-style:italic;
+      margin-bottom:.9rem;
+    }
+    .sub-block { margin-top:1.4rem; padding-top:1.4rem; border-top:1px solid var(--border); }
+    .sub-title {
+      font-family:'Syne',sans-serif; font-size:.88rem; font-weight:700;
+      color:var(--text); margin-bottom:.7rem; letter-spacing:.01em;
+    }
+    .blist { list-style:none; display:flex; flex-direction:column; gap:.55rem; }
+    .blist li {
+      font-size:.9rem; color:var(--muted); line-height:1.6;
+      padding-left:1.4rem; position:relative;
+    }
+    .blist li::before {
+      content:'→'; position:absolute; left:0;
+      color:var(--accent); font-size:.75rem; top:.05em;
+    }
+    .blist li strong { color:var(--text); font-weight:500; }
+
+    /* ─── SKILLS ───────────────────────────────────────────── */
+    .skills-grid {
+      display:grid; grid-template-columns:repeat(3,1fr); gap:1.25rem;
+    }
+    .skill-group {
+      background:var(--surface); border:1px solid var(--border);
+      border-radius:var(--radius); padding:1.6rem;
+      transition:border-color .25s;
+    }
+    .skill-group:hover { border-color:var(--accent-mid); }
+    .sg-title {
+      font-family:'Syne',sans-serif; font-size:.7rem; font-weight:700;
+      letter-spacing:.12em; text-transform:uppercase; color:var(--accent);
+      margin-bottom:1.1rem;
+    }
+    .skill-tags { display:flex; flex-wrap:wrap; gap:.45rem; }
+    .stag {
+      font-size:.78rem; color:var(--muted);
+      background:var(--surface-2); border:1px solid var(--border);
+      padding:.28rem .7rem; border-radius:4px;
+      transition:all .18s;
+    }
+    .stag:hover {
+      color:var(--accent); border-color:var(--accent-mid);
+      background:var(--accent-dim);
+    }
+
+    /* ─── IMPACT CARDS ─────────────────────────────────────── */
+    .impact-grid {
+      display:grid; grid-template-columns:repeat(2,1fr); gap:1.25rem;
+    }
+    .impact-card {
+      background:var(--surface); border:1px solid var(--border);
+      border-radius:var(--radius); padding:2rem;
+      position:relative; overflow:hidden;
+      transition:transform .25s, border-color .25s;
+    }
+    .impact-card::after {
+      content:''; position:absolute; top:0; left:0; right:0; height:2px;
+      background:var(--accent);
+      transform:scaleX(0); transform-origin:left;
+      transition:transform .4s ease;
+    }
+    .impact-card:hover::after { transform:scaleX(1); }
+    .impact-card:hover { transform:translateY(-3px); }
+    .impact-num {
+      font-family:'Syne',sans-serif; font-size:2.75rem; font-weight:800;
+      color:var(--accent); letter-spacing:-.05em; line-height:1;
+      margin-bottom:.5rem;
+    }
+    .impact-title {
+      font-family:'Syne',sans-serif; font-size:.95rem; font-weight:700;
+      color:var(--white); margin-bottom:.5rem;
+    }
+    .impact-desc { font-size:.84rem; color:var(--muted); line-height:1.6; }
+
+    /* ─── EDUCATION ────────────────────────────────────────── */
+    .edu-grid { display:grid; grid-template-columns:1fr 1fr; gap:1.25rem; }
+    .edu-card {
+      background:var(--surface); border:1px solid var(--border);
+      border-radius:var(--radius); padding:1.75rem;
+      transition:border-color .25s;
+    }
+    .edu-card:hover { border-color:var(--accent); }
+    .edu-degree {
+      font-family:'Syne',sans-serif; font-size:.98rem; font-weight:700;
+      color:var(--white); margin-bottom:.4rem; line-height:1.35;
+    }
+    .edu-school { font-size:.88rem; color:var(--muted); margin-bottom:.85rem; }
+    .edu-tags { display:flex; gap:.6rem; flex-wrap:wrap; }
+    .edu-tag {
+      font-size:.72rem; color:var(--accent); background:var(--accent-dim);
+      padding:.2rem .65rem; border-radius:4px; font-weight:500;
+    }
+
+    /* ─── CONTACT ──────────────────────────────────────────── */
+    #contact-wrap {
+      max-width:1060px; margin:0 auto;
+      padding:7rem 2.5rem;
+      border-top:1px solid var(--border);
+      text-align:center;
+    }
+    .contact-eyebrow {
+      font-size:.72rem; letter-spacing:.14em; text-transform:uppercase;
+      color:var(--accent); margin-bottom:1rem;
+    }
+    .contact-headline {
+      font-size:clamp(2rem,5.5vw,3.5rem);
+      color:var(--white); letter-spacing:-.03em; margin-bottom:1rem;
+    }
+    .contact-sub { font-size:1rem; color:var(--muted); margin-bottom:2.75rem; }
+    .contact-links { display:flex; justify-content:center; gap:1rem; flex-wrap:wrap; }
+
+    /* ─── FOOTER ───────────────────────────────────────────── */
+    footer {
+      border-top:1px solid var(--border);
+      max-width:1060px; margin:0 auto;
+      padding:1.75rem 2.5rem;
+      display:flex; justify-content:space-between; align-items:center;
+    }
+    .footer-name {
+      font-family:'Syne',sans-serif; font-weight:700;
+      font-size:.88rem; color:var(--accent);
+    }
+    .footer-copy { font-size:.78rem; color:var(--faint); }
+
+    /* ─── DIVIDER LINE ─────────────────────────────────────── */
+    .full-border {
+      border-top:1px solid var(--border);
+      margin:0 2.5rem;
+    }
+
+    /* ─── RESPONSIVE ───────────────────────────────────────── */
+    @media (max-width:768px) {
+      nav { padding:1rem 1.25rem; }
+      .nav-links { display:none; }
+      #hero { padding:7rem 1.25rem 4rem; }
+      .section-wrap { padding:5rem 1.25rem; }
+      .about-layout { grid-template-columns:1fr; gap:3rem; }
+      .skills-grid { grid-template-columns:1fr; }
+      .impact-grid { grid-template-columns:1fr; }
+      .edu-grid { grid-template-columns:1fr; }
+      .stats-grid { grid-template-columns:1fr 1fr; }
+      #contact-wrap { padding:5rem 1.25rem; }
+      footer { flex-direction:column; gap:.5rem; text-align:center; padding:1.5rem 1.25rem; }
+      .full-border { margin:0 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ──────────────────────────────────────────────── -->
+<nav id="nav" role="navigation" aria-label="Main navigation">
+  <span class="nav-logo" aria-label="Divyanshi Garg">DG</span>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#impact">Impact</a></li>
+    <li><a href="#contact-wrap">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ── HERO ─────────────────────────────────────────────── -->
+<section id="hero" aria-label="Introduction">
+  <canvas id="hero-canvas" aria-hidden="true"></canvas>
+  <div class="hero-content">
+    <div class="hero-status" aria-label="Current status">
+      <span class="hero-status-dot" aria-hidden="true"></span>
+      Currently at Amadeus Labs &nbsp;·&nbsp; Open to opportunities
+    </div>
+    <h1 class="hero-name">
+      Divyanshi<br><span class="accent">Garg.</span>
+    </h1>
+    <p class="hero-tagline">
+      I build <strong>B2B digital products</strong> that don't just ship —
+      they drive revenue, cut costs, and make entire teams move faster.
+    </p>
+    <div class="hero-cta">
+      <a href="#experience" class="btn btn-primary">View My Work</a>
+      <a href="https://linkedin.com/in/divyanshigarg" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">LinkedIn ↗</a>
+      <a href="mailto:divyanshi0510@gmail.com" class="btn btn-ghost">Email Me</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── ABOUT ─────────────────────────────────────────────── -->
+<div id="about">
+  <div class="section-wrap">
+    <div class="section-eyebrow">01 — About</div>
+    <div class="about-layout">
+      <div class="about-text reveal">
+        <p>
+          I'm a <strong>Product Owner at Amadeus Labs</strong>, building inside the revenue and
+          post-purchase ecosystem of a $9.5B airline. My background is unusual in the best way —
+          a <strong>CS engineering degree</strong> followed by an <strong>MBA from ISB</strong>,
+          which means I can read a technical spec and write a business case in the same afternoon.
+        </p>
+        <p>
+          I've spent 4+ years at the intersection of product strategy and digital transformation.
+          That means <strong>25+ PRDs authored</strong>, hundreds of user stories scoped, six
+          focus groups run, and cross-functional teams aligned around what actually ships.
+          Not what sounds good in a deck.
+        </p>
+        <p>
+          The products I've owned have collectively generated <strong>millions in measurable impact</strong>.
+          I don't manage roadmaps — I own outcomes.
+        </p>
+      </div>
+      <div class="stats-grid" aria-label="Key metrics">
+        <div class="stat-card reveal d1">
+          <div class="stat-num">4+</div>
+          <div class="stat-lbl">Years Experience</div>
+        </div>
+        <div class="stat-card reveal d2">
+          <div class="stat-num">$2.2M+</div>
+          <div class="stat-lbl">Savings Delivered</div>
+        </div>
+        <div class="stat-card reveal d3">
+          <div class="stat-num">700+</div>
+          <div class="stat-lbl">Man-days Saved</div>
+        </div>
+        <div class="stat-card reveal d4">
+          <div class="stat-num">50%</div>
+          <div class="stat-lbl">CSAT Improvement</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── EXPERIENCE ─────────────────────────────────────────── -->
+<div id="experience">
+  <div class="section-wrap">
+    <div class="section-eyebrow">02 — Experience</div>
+    <h2 class="section-title">Where I've Shipped</h2>
+
+    <div class="timeline" role="list">
+
+      <!-- Amadeus Labs -->
+      <div class="t-item reveal" role="listitem">
+        <div class="t-header">
+          <div class="t-company">Amadeus Labs</div>
+          <div class="t-date">May 2025 — Present</div>
+        </div>
+        <div class="t-role">Product Owner · Airline Digital Products</div>
+        <ul class="blist">
+          <li>Spearheading product strategy for the <strong>revenue &amp; post-purchase ecosystem</strong> of a $9.5B market-cap airline — owning booking, ancillary services, and full refund journeys</li>
+          <li>Authored <strong>25+ requirement documents</strong> across booking and post-booking flows, cutting spec-related rework by ~20%</li>
+          <li>Increased <strong>sprint readiness by 20%</strong> by translating PRDs into 15+ epics and 50+ user stories</li>
+          <li>Recovered <strong>700+ man-days of team velocity</strong> through structured backlog refinement and agile delivery optimization</li>
+          <li>Built a real-time <strong>Incident Tracking Dashboard</strong> for 10+ APAC airlines, giving leadership instant system-health visibility</li>
+        </ul>
+      </div>
+
+      <!-- Gemini Solutions -->
+      <div class="t-item reveal" role="listitem">
+        <div class="t-header">
+          <div class="t-company">Gemini Solutions Pvt. Ltd.</div>
+          <div class="t-date">Jan 2020 — Mar 2024</div>
+        </div>
+        <div class="t-role">Technical Intern → Software Engineer → Senior Software Engineer</div>
+
+        <div class="sub-block">
+          <div class="sub-title">Product Strategy</div>
+          <ul class="blist">
+            <li>Led end-to-end product lifecycle for an <strong>Employee Recognition Platform</strong> — authored PRDs, designed 15+ wireframes, ran sprint planning as Scrum Master</li>
+            <li>Cut <strong>employee evaluation time by 35%</strong> by deploying real-time analytics dashboards for managers</li>
+            <li>Grew <strong>user adoption by 20%</strong> through gamified rewards; launched Scratch-a-Card feature that elevated <strong>CSAT by 50%</strong></li>
+          </ul>
+        </div>
+
+        <div class="sub-block">
+          <div class="sub-title">Business Analytics</div>
+          <ul class="blist">
+            <li>Built Power BI dashboards supporting <strong>50+ global account managers</strong> with actionable, real-time analytics</li>
+            <li>Saved <strong>$700K annually</strong> by consolidating fragmented reporting into a single unified dashboard</li>
+            <li>Realized <strong>~$1.5M in annual savings</strong> by establishing 20+ performance indicators to surface low-performing accounts</li>
+            <li>Reduced <strong>query resolution time by 75%</strong> — from 2 hours down to 30 minutes — via a governance monitoring dashboard</li>
+          </ul>
+        </div>
+
+        <div class="sub-block">
+          <div class="sub-title">Digital Transformation Intern</div>
+          <ul class="blist">
+            <li>Led IT migration from legacy Shell scripts to Python for a <strong>US financial firm managing $1.8Tn AUM</strong></li>
+            <li>Achieved <strong>99.99% success rate</strong> migrating 50+ clients to a secure domain; cut runtime by 50% across 400+ scripts</li>
+            <li>Realized <strong>$1M in savings</strong> by optimizing Oracle database architecture for 100+ objects</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ── SKILLS ─────────────────────────────────────────────── -->
+<div id="skills">
+  <div class="section-wrap">
+    <div class="section-eyebrow">03 — Skills</div>
+    <h2 class="section-title">What I Work With</h2>
+    <div class="skills-grid">
+      <div class="skill-group reveal">
+        <div class="sg-title">Product &amp; Strategy</div>
+        <div class="skill-tags">
+          <span class="stag">Product Lifecycle Mgmt</span>
+          <span class="stag">Agile &amp; Scrum</span>
+          <span class="stag">Roadmapping</span>
+          <span class="stag">User Research</span>
+          <span class="stag">A/B Testing</span>
+          <span class="stag">Feature Scoping</span>
+          <span class="stag">PRD Authoring</span>
+          <span class="stag">Stakeholder Management</span>
+        </div>
+      </div>
+      <div class="skill-group reveal d1">
+        <div class="sg-title">Design &amp; Delivery</div>
+        <div class="skill-tags">
+          <span class="stag">Figma</span>
+          <span class="stag">Balsamiq</span>
+          <span class="stag">Miro</span>
+          <span class="stag">JIRA</span>
+          <span class="stag">Confluence</span>
+          <span class="stag">Wireframing</span>
+          <span class="stag">Sprint Planning</span>
+          <span class="stag">Backlog Refinement</span>
+        </div>
+      </div>
+      <div class="skill-group reveal d2">
+        <div class="sg-title">Data &amp; Analytics</div>
+        <div class="skill-tags">
+          <span class="stag">Power BI</span>
+          <span class="stag">Tableau</span>
+          <span class="stag">SQL</span>
+          <span class="stag">Snowflake</span>
+          <span class="stag">ETL Pipelines</span>
+          <span class="stag">Data Analysis</span>
+          <span class="stag">REST APIs</span>
+          <span class="stag">Postman</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── IMPACT ─────────────────────────────────────────────── -->
+<div id="impact">
+  <div class="section-wrap">
+    <div class="section-eyebrow">04 — Impact</div>
+    <h2 class="section-title">Numbers That Moved</h2>
+    <div class="impact-grid">
+
+      <div class="impact-card reveal">
+        <div class="impact-num">$1.5M</div>
+        <div class="impact-title">Annual Savings via Analytics</div>
+        <div class="impact-desc">Established 20+ performance indicators to identify and address low-performing accounts — realizing ~$1.5M in recurring annual savings at Gemini Solutions.</div>
+      </div>
+
+      <div class="impact-card reveal d1">
+        <div class="impact-num">700+</div>
+        <div class="impact-title">Man-days Recovered</div>
+        <div class="impact-desc">Improved team velocity at Amadeus Labs by optimizing agile delivery processes, structured backlog refinement, and eliminating sprint-planning friction.</div>
+      </div>
+
+      <div class="impact-card reveal d2">
+        <div class="impact-num">75%</div>
+        <div class="impact-title">Faster Query Resolution</div>
+        <div class="impact-desc">Deployed a governance dashboard that compressed account query resolution from 2 hours to 30 minutes for 50+ global account managers.</div>
+      </div>
+
+      <div class="impact-card reveal d3">
+        <div class="impact-num">Top 5%</div>
+        <div class="impact-title">Exceptional Performer</div>
+        <div class="impact-desc">Consistently rated in the top 5% of performers. Received the 'All Rounder Award' (1 of 75+) for managing 40+ team members across 4 teams simultaneously.</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ── EDUCATION ───────────────────────────────────────────── -->
+<div id="education">
+  <div class="section-wrap">
+    <div class="section-eyebrow">05 — Education</div>
+    <h2 class="section-title">The Foundation</h2>
+    <div class="edu-grid">
+      <div class="edu-card reveal">
+        <div class="edu-degree">MBA · Information Technology &amp; Strategy</div>
+        <div class="edu-school">Indian School of Business (ISB) — PGP</div>
+        <div class="edu-tags">
+          <span class="edu-tag">2024 – 2025</span>
+          <span class="edu-tag">GPA 3.36 / 4.0</span>
+        </div>
+      </div>
+      <div class="edu-card reveal d1">
+        <div class="edu-degree">B.E. · Computer Science Engineering</div>
+        <div class="edu-school">UIET, Panjab University, Chandigarh</div>
+        <div class="edu-tags">
+          <span class="edu-tag">2016 – 2020</span>
+          <span class="edu-tag">GPA 8.24 / 10</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── CONTACT ────────────────────────────────────────────── -->
+<div id="contact-wrap">
+  <div class="contact-eyebrow">06 — Let's Connect</div>
+  <h2 class="contact-headline reveal">Ready to build<br>something that actually ships?</h2>
+  <p class="contact-sub reveal d1">Open to product roles, collaborations, and sharp conversations.</p>
+  <div class="contact-links reveal d2">
+    <a href="mailto:divyanshi0510@gmail.com" class="btn btn-primary">divyanshi0510@gmail.com</a>
+    <a href="https://linkedin.com/in/divyanshigarg" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">LinkedIn ↗</a>
+  </div>
+</div>
+
+<!-- ── FOOTER ─────────────────────────────────────────────── -->
+<div class="full-border" aria-hidden="true"></div>
+<footer>
+  <span class="footer-name">Divyanshi Garg</span>
+  <span class="footer-copy">Product Owner · Amadeus Labs · ISB MBA · 2026</span>
+</footer>
+
+<script>
+  // ── NAV SCROLL BORDER ─────────────────────────────────────
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive: true });
+
+  // ── INTERSECTION OBSERVER — SCROLL REVEALS ────────────────
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  revealEls.forEach(el => io.observe(el));
+
+  // ── HERO DOT GRID — INTERACTIVE CANVAS ───────────────────
+  (function() {
+    const canvas = document.getElementById('hero-canvas');
+    const ctx    = canvas.getContext('2d');
+    const hero   = document.getElementById('hero');
+    let W, H, dots = [], animFrame;
+    const mouse = { x: -9999, y: -9999 };
+    const SPACING = 38, REPEL_RADIUS = 110, REPEL_STRENGTH = 22;
+    const ACCENT = '200,255,0';
+
+    function resize() {
+      W = canvas.width  = hero.offsetWidth;
+      H = canvas.height = hero.offsetHeight;
+      buildDots();
+    }
+
+    function buildDots() {
+      dots = [];
+      for (let x = SPACING / 2; x < W; x += SPACING) {
+        for (let y = SPACING / 2; y < H; y += SPACING) {
+          dots.push({
+            bx: x, by: y,   // base position
+            x, y,            // current position
+            r:     Math.random() * 1.1 + 0.4,
+            alpha: Math.random() * 0.25 + 0.07,
+            speed: Math.random() * 0.4 + 0.15,
+            phase: Math.random() * Math.PI * 2
+          });
+        }
+      }
+    }
+
+    function draw(t) {
+      ctx.clearRect(0, 0, W, H);
+      const time = t * 0.001;
+
+      for (let i = 0; i < dots.length; i++) {
+        const d  = dots[i];
+        const dx = d.bx - mouse.x;
+        const dy = d.by - mouse.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        const repel = Math.max(0, 1 - dist / REPEL_RADIUS);
+
+        // target position = base + repulsion vector
+        const tx = d.bx + (dist > 0 ? (dx / dist) * repel * REPEL_STRENGTH : 0);
+        const ty = d.by + (dist > 0 ? (dy / dist) * repel * REPEL_STRENGTH : 0);
+
+        // ease toward target
+        d.x += (tx - d.x) * 0.1;
+        d.y += (ty - d.y) * 0.1;
+
+        const pulse = Math.sin(time * d.speed + d.phase) * 0.08;
+        const a = Math.min(d.alpha + pulse + repel * 0.45, 0.85);
+        const r = d.r + repel * 1.8;
+
+        ctx.beginPath();
+        ctx.arc(d.x, d.y, r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${ACCENT},${a})`;
+        ctx.fill();
+      }
+      animFrame = requestAnimationFrame(draw);
+    }
+
+    // Track mouse relative to hero
+    hero.addEventListener('mousemove', e => {
+      const rect = hero.getBoundingClientRect();
+      mouse.x = e.clientX - rect.left;
+      mouse.y = e.clientY - rect.top;
+    }, { passive: true });
+    hero.addEventListener('mouseleave', () => { mouse.x = -9999; mouse.y = -9999; });
+
+    // Touch support
+    hero.addEventListener('touchmove', e => {
+      const rect = hero.getBoundingClientRect();
+      const t = e.touches[0];
+      mouse.x = t.clientX - rect.left;
+      mouse.y = t.clientY - rect.top;
+    }, { passive: true });
+
+    window.addEventListener('resize', resize, { passive: true });
+    resize();
+    animFrame = requestAnimationFrame(draw);
+  })();
+
+  // ── STAT COUNTER ANIMATION ────────────────────────────────
+  (function() {
+    const cards = document.querySelectorAll('.stat-card');
+
+    function parseValue(text) {
+      // Extract leading number, handle decimals
+      const m = text.match(/[\d.]+/);
+      return m ? parseFloat(m[0]) : null;
+    }
+
+    function animateCard(card) {
+      const el = card.querySelector('.stat-num');
+      const original = el.textContent.trim();
+      const val = parseValue(original);
+      if (val === null) return;
+
+      const prefix = original.match(/^[^0-9]*/)[0];
+      const suffix = original.match(/[^0-9.]*$/)[0];
+      const isFloat = original.includes('.');
+      const duration = 1400;
+      const start = performance.now();
+
+      const tick = (now) => {
+        const p = Math.min((now - start) / duration, 1);
+        const ease = 1 - Math.pow(1 - p, 3);
+        const cur = isFloat
+          ? (val * ease).toFixed(1)
+          : Math.round(val * ease);
+        el.textContent = prefix + cur + suffix;
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    }
+
+    const statIO = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          animateCard(e.target);
+          statIO.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.6 });
+
+    cards.forEach(c => statIO.observe(c));
+  })();
+</script>
+</body>
+</html>
