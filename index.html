@@ -323,6 +323,52 @@
     }
     .impact-desc { font-size:.84rem; color:var(--muted); line-height:1.6; }
 
+    /* ─── PROJECTS ─────────────────────────────────────────── */
+    .projects-grid {
+      display:grid; grid-template-columns:repeat(2,1fr); gap:1.5rem;
+    }
+    .project-card {
+      background:var(--surface); border:1px solid var(--border);
+      border-radius:var(--radius); padding:2rem;
+      position:relative; overflow:hidden;
+      display:flex; flex-direction:column; gap:1rem;
+      transition:transform .25s, border-color .25s;
+    }
+    .project-card::before {
+      content:''; position:absolute; top:0; left:0; right:0; height:2px;
+      background:var(--accent);
+      transform:scaleX(0); transform-origin:left;
+      transition:transform .4s ease;
+    }
+    .project-card:hover::before { transform:scaleX(1); }
+    .project-card:hover { transform:translateY(-3px); border-color:var(--accent-mid); }
+    .project-header {
+      display:flex; justify-content:space-between; align-items:flex-start; gap:1rem;
+    }
+    .project-name {
+      font-family:'Syne',sans-serif; font-size:1.15rem; font-weight:700;
+      color:var(--white); line-height:1.2;
+    }
+    .project-links { display:flex; gap:.5rem; flex-shrink:0; }
+    .project-link {
+      font-size:.72rem; font-weight:500; letter-spacing:.06em;
+      text-transform:uppercase; color:var(--muted);
+      border:1px solid var(--border); border-radius:4px;
+      padding:.25rem .65rem;
+      transition:all .2s;
+    }
+    .project-link:hover { color:var(--accent); border-color:var(--accent); }
+    .project-desc {
+      font-size:.88rem; color:var(--muted); line-height:1.65;
+      flex:1;
+    }
+    .project-tech { display:flex; flex-wrap:wrap; gap:.4rem; margin-top:auto; }
+    .tech-tag {
+      font-size:.73rem; color:var(--accent); background:var(--accent-dim);
+      border:1px solid var(--accent-mid); border-radius:4px;
+      padding:.2rem .6rem; font-weight:500;
+    }
+
     /* ─── EDUCATION ────────────────────────────────────────── */
     .edu-grid { display:grid; grid-template-columns:1fr 1fr; gap:1.25rem; }
     .edu-card {
@@ -388,6 +434,7 @@
       .about-layout { grid-template-columns:1fr; gap:3rem; }
       .skills-grid { grid-template-columns:1fr; }
       .impact-grid { grid-template-columns:1fr; }
+      .projects-grid { grid-template-columns:1fr; }
       .edu-grid { grid-template-columns:1fr; }
       .stats-grid { grid-template-columns:1fr 1fr; }
       #contact-wrap { padding:5rem 1.25rem; }
@@ -406,6 +453,7 @@
     <li><a href="#experience">Experience</a></li>
     <li><a href="#skills">Skills</a></li>
     <li><a href="#impact">Impact</a></li>
+    <li><a href="#projects">Projects</a></li>
     <li><a href="#contact-wrap">Contact</a></li>
   </ul>
 </nav>
@@ -627,10 +675,41 @@
   </div>
 </div>
 
+<!-- ── PROJECTS ───────────────────────────────────────────── -->
+<div id="projects">
+  <div class="section-wrap">
+    <div class="section-eyebrow">05 — Projects</div>
+    <h2 class="section-title">Things I've Built</h2>
+    <div class="projects-grid">
+
+      <div class="project-card reveal">
+        <div class="project-header">
+          <div class="project-name">Photo Booth Maker</div>
+          <div class="project-links">
+            <a href="https://photo-booth-maker-app.vercel.app" target="_blank" rel="noopener noreferrer" class="project-link">Live ↗</a>
+            <a href="https://github.com/Divyanshi0007/photo-booth-maker-app" target="_blank" rel="noopener noreferrer" class="project-link">Code ↗</a>
+          </div>
+        </div>
+        <p class="project-desc">
+          A fun, interactive photo booth web app — snap photos using your webcam, browse a strip of shots, and download the finished collage. Built to explore modern React patterns and component-driven UI development with a focus on clean UX.
+        </p>
+        <div class="project-tech">
+          <span class="tech-tag">React</span>
+          <span class="tech-tag">TypeScript</span>
+          <span class="tech-tag">Vite</span>
+          <span class="tech-tag">Tailwind CSS</span>
+          <span class="tech-tag">shadcn/ui</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 <!-- ── EDUCATION ───────────────────────────────────────────── -->
 <div id="education">
   <div class="section-wrap">
-    <div class="section-eyebrow">05 — Education</div>
+    <div class="section-eyebrow">06 — Education</div>
     <h2 class="section-title">The Foundation</h2>
     <div class="edu-grid">
       <div class="edu-card reveal">
@@ -655,7 +734,7 @@
 
 <!-- ── CONTACT ────────────────────────────────────────────── -->
 <div id="contact-wrap">
-  <div class="contact-eyebrow">06 — Let's Connect</div>
+  <div class="contact-eyebrow">07 — Let's Connect</div>
   <h2 class="contact-headline reveal">Ready to build<br>something that actually ships?</h2>
   <p class="contact-sub reveal d1">Open to product roles, collaborations, and sharp conversations.</p>
   <div class="contact-links reveal d2">
